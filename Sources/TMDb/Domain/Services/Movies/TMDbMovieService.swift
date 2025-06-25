@@ -101,6 +101,21 @@ final class TMDbMovieService: MovieService {
         return videoCollection
     }
 
+    func releaseDates(
+        forMovie movieID: Movie.ID
+    ) async throws -> MovieReleaseDatesList {
+        let request = MovieReleaseDatesRequest(id: movieID)
+        
+        let releaseDates: MovieReleaseDatesList
+        do {
+            releaseDates = try await apiClient.perform(request)
+        } catch let error {
+            throw TMDbError(error: error)
+        }
+        
+        return releaseDates
+    }
+    
     func recommendations(
         forMovie movieID: Movie.ID,
         page: Int? = nil,

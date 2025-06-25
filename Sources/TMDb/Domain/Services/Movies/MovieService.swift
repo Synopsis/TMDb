@@ -76,6 +76,17 @@ public protocol MovieService: Sendable {
         page: Int?,
         language: String?
     ) async throws -> ReviewPageableList
+    
+    
+    
+    ///
+    /// Returns the release dates for a movie
+    ///
+    func releaseDates(
+        forMovie movieID: Movie.ID
+    ) async throws -> MovieReleaseDatesList
+    
+    
 
     ///
     /// Returns the images that belong to a movie.
@@ -332,7 +343,9 @@ extension MovieService {
     ) async throws -> ReviewPageableList {
         try await reviews(forMovie: movieID, page: page, language: language)
     }
-
+    
+    
+    
     ///
     /// Returns the images that belong to a movie.
     ///

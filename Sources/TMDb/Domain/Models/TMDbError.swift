@@ -30,7 +30,7 @@ public enum TMDbError: Equatable, LocalizedError, Sendable {
     case network(Error)
 
     /// An unknown error.
-    case unknown
+    case unknown(Error)
 
     ///
     /// Returns a Boolean value indicating whether two `TMDBError`s are equal.
@@ -55,7 +55,7 @@ public enum TMDbError: Equatable, LocalizedError, Sendable {
         case (.network, .network):
             true
 
-        case (.unknown, .unknown):
+        case (.unknown(let lhsError), .unknown(let rhsError)):
             true
 
         default:
@@ -78,11 +78,11 @@ extension TMDbError {
         case .unauthorised:
             "Unauthorised"
 
-        case .network:
-            "Network error"
+        case .network(let error):
+            "Network error: \(error)"
 
-        case .unknown:
-            "Unknown"
+        case .unknown(let error):
+            "Unknown: \(error)"
         }
     }
 

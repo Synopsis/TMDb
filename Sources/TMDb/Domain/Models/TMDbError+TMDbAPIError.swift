@@ -23,7 +23,7 @@ extension TMDbError {
 
     init(error: some Error) {
         guard let apiError = error as? TMDbAPIError else {
-            self = .unknown
+            self = .unknown(error)
             return
         }
 
@@ -38,7 +38,7 @@ extension TMDbError {
             self = .network(error)
 
         default:
-            self = .unknown
+            self = .unknown(error)
         }
     }
 
