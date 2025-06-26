@@ -55,6 +55,11 @@ public struct TVEpisode: Identifiable, Codable, Equatable, Hashable, Sendable {
     public let airDate: Date?
 
     ///
+    /// TV episode runtime in minutes
+    ///
+    public let runtime: Int?
+
+    ///
     /// TV episode production code.
     ///
     public let productionCode: String?
@@ -110,6 +115,7 @@ public struct TVEpisode: Identifiable, Codable, Equatable, Hashable, Sendable {
         seasonNumber: Int,
         overview: String? = nil,
         airDate: Date? = nil,
+        runtime: Int? = nil,
         productionCode: String? = nil,
         stillPath: URL? = nil,
         crew: [CrewMember]? = nil,
@@ -123,6 +129,7 @@ public struct TVEpisode: Identifiable, Codable, Equatable, Hashable, Sendable {
         self.seasonNumber = seasonNumber
         self.overview = overview
         self.airDate = airDate
+        self.runtime = runtime
         self.productionCode = productionCode
         self.stillPath = stillPath
         self.crew = crew
