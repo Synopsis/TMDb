@@ -60,6 +60,11 @@ public struct CastMember: Identifiable, Codable, Equatable, Hashable, Sendable {
     /// To generate a full URL see <doc:/TMDb/GeneratingImageURLs>.
     ///
     public let profilePath: URL?
+    
+    ///
+    /// Cast member's popularity score
+    ///
+    public let popularity: Double?
 
     ///
     /// Order number in the cast list.
@@ -77,6 +82,7 @@ public struct CastMember: Identifiable, Codable, Equatable, Hashable, Sendable {
     ///    - character: Cast member's character name.
     ///    - gender: Cast member's gender.
     ///    - profilePath: Cast member's profile image.
+    ///    - popularity: Cast member's popularity score.
     ///    - order: Order number in the cast list.
     ///
     public init(
@@ -87,6 +93,7 @@ public struct CastMember: Identifiable, Codable, Equatable, Hashable, Sendable {
         character: String,
         gender: Gender? = nil,
         profilePath: URL? = nil,
+        popularity: Double? = nil,
         order: Int
     ) {
         self.id = id
@@ -96,6 +103,7 @@ public struct CastMember: Identifiable, Codable, Equatable, Hashable, Sendable {
         self.character = character
         self.gender = gender
         self.profilePath = profilePath
+        self.popularity = popularity
         self.order = order
     }
 
@@ -111,6 +119,7 @@ extension CastMember {
         case character
         case gender
         case profilePath
+        case popularity
         case order
     }
 
