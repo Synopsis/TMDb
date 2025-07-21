@@ -169,6 +169,10 @@ extension MovieListItem {
         case hasVideo = "video"
         case isAdultOnly = "adult"
     }
+    
+    private enum AlternateGenreCodingKeys: String, CodingKey {
+        case genreIDs
+    }
 
     ///
     /// Creates a new instance by decoding from the given decoder.
@@ -191,7 +195,18 @@ extension MovieListItem {
         self.originalTitle = try container.decode(String.self, forKey: .originalTitle)
         self.originalLanguage = try container.decode(String.self, forKey: .originalLanguage)
         self.overview = try container.decode(String.self, forKey: .overview)
-        self.genreIDs = try container.decode([Genre.ID].self, forKey: .genreIDs)
+        
+        if let genreIDs = try container.decodeIfPresent([Genre.ID].self, forKey: .genreIDs) {
+            self.genreIDs = genreIDs
+        } else {
+            let containerAlt = try decoder.container(keyedBy: AlternateGenreCodingKeys.self)
+            if let genreIDs = try containerAlt.decodeIfPresent([Genre.ID].self, forKey: .genreIDs) {
+                self.genreIDs = genreIDs
+            } else {
+                print("Couldn't get genres for \(self.title) (tried fallback)")
+                self.genreIDs = []
+            }
+        }
 
         // Need to deal with empty strings - date decoding will fail with an empty string
         let releaseDateString = try container.decodeIfPresent(String.self, forKey: .releaseDate)
